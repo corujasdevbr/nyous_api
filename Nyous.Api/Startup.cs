@@ -95,6 +95,8 @@ namespace Nyous.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
             });
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthentication();

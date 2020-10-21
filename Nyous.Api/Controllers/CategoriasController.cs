@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nyous.Api.Domains;
+using Nyous.Api.DTO;
 using Nyous.Api.Interfaces.Repositorios;
 
 namespace Nyous.Api.Controllers
@@ -18,14 +19,18 @@ namespace Nyous.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin" )]
-        public IActionResult Cadastrar(Categoria categoria)
+        //[Authorize(Roles = "Admin" )]
+        public IActionResult Cadastrar(CategoriaDTO categoria)
         {
             try
             {
-                _categoriaRepositorio.Adicionar(categoria);
+                Categoria cat = new Categoria();
+                cat.Nome = categoria.Nome;
+                cat.UrlImagem = categoria.UrlImagem;
 
-                return Ok(categoria);
+                _categoriaRepositorio.Adicionar(cat);
+
+                return Ok(cat);
             }
             catch (Exception ex)
             {
