@@ -49,8 +49,6 @@ namespace Nyous.Api
                     };
                 });
 
-            services.AddCors();
-
             // Registramos o gerador do Swagger, definindo 1 ou mais documentos do Swagger
             services.AddSwaggerGen(c =>
             {
@@ -70,9 +68,12 @@ namespace Nyous.Api
                     builder => builder.AllowAnyOrigin()
                                         .AllowAnyMethod()
                                         .AllowAnyHeader());
+
             });
 
             services.AddScoped<IContaRepositorio, ContaRepositorio>();
+            services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
+            
             services.AddScoped<NyousContext>();
 
         }

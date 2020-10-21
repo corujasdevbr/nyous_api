@@ -8,11 +8,11 @@ using System.Linq.Expressions;
 
 namespace Nyous.Api.Repositorios
 {
-    public abstract class BaseRepositorio<T> : IRepository<T> where T : class
+    public abstract class Repository<T> : IRepository<T> where T : class
     {
         private readonly NyousContext _context;
 
-        protected BaseRepositorio(NyousContext context)
+        protected Repository(NyousContext context)
         {
             _context = context;
         }

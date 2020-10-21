@@ -43,6 +43,29 @@ namespace Nyous.Api.Controllers
             return NotFound();
         }
 
+        // Usamos a anotação "AllowAnonymous" para 
+        // ignorar a autenticação neste método, já que é ele quem fará isso
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public IActionResult Register(Register register)
+        {
+            try
+            {
+                // Autenticamos o usuário da API
+                var usuario = _contaRepositorio.Register(register.Nome, register.Email, register.Senha, "Comum");
+                if (usuario != null)
+                {
+                    var tokenString = GenerateJSONWebToken(usuario);
+                    return Ok(new { token = tokenString });
+                }
+
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         // Criamos nosso método que vai gerar nosso Token

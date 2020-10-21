@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>E:\senai\aulas\sprint_3_front_end\nyous-react\backend\Nyous.Api\Nyous.Api\Nyous.Api.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\Fernando Henrique\Documents\Senai\nyous_api\Nyous.Api\Nyous.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

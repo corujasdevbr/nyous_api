@@ -12,6 +12,11 @@ namespace Nyous.Api.Contexts
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Evento> Eventos { get; set; }
 
+        public NyousContext()
+        {
+
+        }
+
         public NyousContext(DbContextOptions<NyousContext> options) : base(options)
         {
             this.ChangeTracker.LazyLoadingEnabled = false;
