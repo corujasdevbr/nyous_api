@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
-
+﻿
 namespace Nyous.Api.DTO
 {
     public class CategoriaDTO

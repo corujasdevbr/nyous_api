@@ -1,36 +1,36 @@
-﻿using System;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nyous.Api.Domains;
 using Nyous.Api.DTO;
 using Nyous.Api.Interfaces.Repositorios;
+using System;
 
 namespace Nyous.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriasController : ControllerBase
+    public class EventosController : ControllerBase
     {
-        private readonly ICategoriaRepositorio _categoriaRepositorio;
+        private readonly IEventoRepositorio _eventoRepositorio;
 
-        public CategoriasController(ICategoriaRepositorio categoriaRepositorio)
+        public EventosController(IEventoRepositorio eventoRepositorio)
         {
-            _categoriaRepositorio = categoriaRepositorio;
+            _eventoRepositorio = eventoRepositorio;
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin" )]
-        public IActionResult Cadastrar(CategoriaDTO categoria)
+        [Authorize(Roles = "Admin")]
+        public IActionResult Cadastrar(EventoDTO evento)
         {
             try
             {
-                Categoria cat = new Categoria();
-                cat.Nome = categoria.Nome;
-                cat.UrlImagem = categoria.UrlImagem;
+                Evento cat = new Evento();
+                cat.Nome = evento.Nome;
+                cat.UrlImagem = evento.UrlImagem;
 
-                _categoriaRepositorio.Adicionar(cat);
+                _eventoRepositorio.Adicionar(cat);
 
-                return Ok(new { data = cat});
+                return Ok(new { data = cat });
             }
             catch (Exception ex)
             {
@@ -40,23 +40,26 @@ namespace Nyous.Api.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public IActionResult Alterar(Guid id, CategoriaDTO categoria)
+        public IActionResult Alterar(Guid id, EventoDTO evento)
         {
             try
             {
-                Categoria cat = _categoriaRepositorio.BuscarPorId(id);
+                Evento evt = _eventoRepositorio.BuscarPorId(id);
 
-                if(cat == null)
+                if (evt == null)
                 {
                     return NotFound();
                 }
 
-                cat.Nome = categoria.Nome;
-                cat.UrlImagem = categoria.UrlImagem;
+                evt.Nome = evento.Nome;
+                evt.UrlImagem = evento.UrlImagem;
+                evt.DataInicial = evento.DataInicial;
+                evt.DataFinal = evento.DataFinal;
+                evt.CategoriaId = evento.CategoriaId;
 
-                _categoriaRepositorio.Atualizar(cat);
+                _eventoRepositorio.Atualizar(evt);
 
-                return Ok(new { data = cat });
+                return Ok(new { data = evt });
             }
             catch (Exception ex)
             {
@@ -70,14 +73,14 @@ namespace Nyous.Api.Controllers
         {
             try
             {
-                Categoria cat = _categoriaRepositorio.BuscarPorId(id);
+                Evento cat = _eventoRepositorio.BuscarPorId(id);
 
                 if (cat == null)
                 {
                     return NotFound();
                 }
 
-                _categoriaRepositorio.Remover(id);
+                _eventoRepositorio.Remover(id);
 
                 return Ok(new { data = cat });
             }
@@ -92,9 +95,9 @@ namespace Nyous.Api.Controllers
         {
             try
             {
-                var categorias = _categoriaRepositorio.ObterTodos();
+                var Eventos = _eventoRepositorio.ObterTodos();
 
-                return Ok(new { data = categorias });
+                return Ok(new { data = Eventos });
             }
             catch (Exception ex)
             {
@@ -102,14 +105,14 @@ namespace Nyous.Api.Controllers
             }
         }
 
-        [HttpGet("eventos")]
-        public IActionResult BuscarCategoriasComEventos()
+        [HttpGet("categorias")]
+        public IActionResult BuscarEventosComEventos()
         {
             try
             {
-                var categorias = _categoriaRepositorio.ObterTodos(new string[] { "eventos"} );
+                var Eventos = _eventoRepositorio.ObterTodos(new string[] { "categoria" });
 
-                return Ok(new { data = categorias });
+                return Ok(new { data = Eventos });
             }
             catch (Exception ex)
             {
@@ -122,7 +125,7 @@ namespace Nyous.Api.Controllers
         {
             try
             {
-                Categoria cat = _categoriaRepositorio.BuscarPorId(id);
+                Evento cat = _eventoRepositorio.BuscarPorId(id);
 
                 if (cat == null)
                 {
