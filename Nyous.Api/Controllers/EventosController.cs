@@ -24,13 +24,16 @@ namespace Nyous.Api.Controllers
         {
             try
             {
-                Evento cat = new Evento();
-                cat.Nome = evento.Nome;
-                cat.UrlImagem = evento.UrlImagem;
+                Evento evt = new Evento();
+                evt.Nome = evento.Nome;
+                evt.UrlImagem = evento.UrlImagem;
+                evt.CategoriaId = evento.CategoriaId;
+                evt.Link = evento.Link;
+                evt.Descricao = evento.Descricao;
 
-                _eventoRepositorio.Adicionar(cat);
+                _eventoRepositorio.Adicionar(evt);
 
-                return Ok(new { data = cat });
+                return Ok(new { data = evt });
             }
             catch (Exception ex)
             {
@@ -53,9 +56,9 @@ namespace Nyous.Api.Controllers
 
                 evt.Nome = evento.Nome;
                 evt.UrlImagem = evento.UrlImagem;
-                evt.DataInicial = evento.DataInicial;
-                evt.DataFinal = evento.DataFinal;
                 evt.CategoriaId = evento.CategoriaId;
+                evt.Link = evento.Link;
+                evt.Descricao = evento.Descricao;
 
                 _eventoRepositorio.Atualizar(evt);
 
@@ -95,7 +98,7 @@ namespace Nyous.Api.Controllers
         {
             try
             {
-                var Eventos = _eventoRepositorio.ObterTodos();
+                var Eventos = _eventoRepositorio.ObterTodos(new string[] { "Categoria"});
 
                 return Ok(new { data = Eventos });
             }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nyous.Api.Contexts;
 
 namespace Nyous.Api.Migrations
 {
     [DbContext(typeof(NyousContext))]
-    partial class NyousContextModelSnapshot : ModelSnapshot
+    [Migration("20201023105310_Alter table Evento, include link")]
+    partial class AltertableEventoincludelink
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

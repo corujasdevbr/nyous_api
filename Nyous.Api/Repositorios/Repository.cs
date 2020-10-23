@@ -48,7 +48,14 @@ namespace Nyous.Api.Repositorios
 
         public virtual IEnumerable<T> ObterTodos(string[] navigationProperties = null)
         {
-            return _context.Set<T>().AsNoTracking().ToList();
+            var query = _context.Set<T>().AsQueryable();
+
+            if (navigationProperties != null)
+            {
+                query = navigationProperties.Aggregate(query, (current, include) => current.Include(include));
+            }
+
+            return query.ToList();
         }
         public virtual void Dispose()
         {

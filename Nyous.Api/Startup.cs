@@ -79,7 +79,8 @@ namespace Nyous.Api
 
             services.AddScoped<IContaRepositorio, ContaRepositorio>();
             services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
-            
+            services.AddScoped<IEventoRepositorio, EventoRepositorio>();
+
             services.AddScoped<NyousContext>();
 
         }

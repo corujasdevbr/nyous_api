@@ -118,6 +118,7 @@ namespace Nyous.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult BuscarPorId(Guid id)
         {
             try
